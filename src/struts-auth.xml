@@ -1,0 +1,20 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="auth" extends="strutsSpringDemo">
+		<!-- AUTHENTICATION ACTIONS AND MAPPINGS START-->
+		<action name="loginAction" class="com.action.LoginAction"
+			method="doLogin">
+			<exception-mapping exception="java.lang.SecurityException"
+				result="securityError"></exception-mapping>
+			<result name="input">/login.jsp</result>
+			<result name="success" type="redirect">${redirectUrl}</result>
+		</action>
+		<action name="logOut" class="com.action.LogoutAction" method="logOut">
+			<result name="success">/login.jsp</result>
+		</action>
+		<!-- AUTHENTICATION ACTIONS AND MAPPINGS END-->
+	</package>
+</struts>

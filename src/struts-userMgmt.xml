@@ -1,0 +1,58 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="userMgmt" extends="strutsSpringDemo">
+		<!-- USER MGMT ACTIONS AND MAPPINGS 	START-->
+		<action name="homeAction" class="com.action.HomeAction" method="homePage">
+			<result name="success" type="tiles">/homePage.tiles</result>
+		</action>
+		<action name="userProfile" class="com.action.HomeAction"
+			method="getUserProfileAction">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="changePassword" class="com.action.HomeAction"
+			method="changePasswordAction">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="updateProfile" class="com.action.HomeAction"
+			method="updateUserProfileAction">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="createUser" class="com.action.HomeAction" method="createUserAction">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="sortOnKey" class="com.action.HomeAction" method="sortOnKey">
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="execAndWait">
+				<param name="delay">50</param>
+				<param name="delaySleepInterval">150</param>
+			</interceptor-ref>
+			<result name="wait">jsp/waitProcess.jsp</result>
+			<result name="success" type="tiles">/homePage.tiles</result>
+		</action>
+		<action name="sortOnVal" class="com.action.HomeAction" method="sortOnValue">
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="execAndWait">
+				<param name="delay">50</param>
+				<param name="delaySleepInterval">150</param>
+			</interceptor-ref>
+			<result name="wait">jsp/waitProcess.jsp</result>
+			<result name="success" type="tiles">/homePage.tiles</result>
+		</action>
+		<!-- USER MGMT ACTIONS AND MAPPINGS END-->
+	</package>
+</struts>

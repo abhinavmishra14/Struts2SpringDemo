@@ -1,0 +1,110 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- STRUTS CONSTANTS START -->
+	<!--
+		STRUTS CONSTANT FOR LOADING CONFIGURATIONS AND PROPERTIES DURING
+		DEVELOPMENT PHASE, WHICH IS BY DEFAULT TRUE.WE WILL MAKE IT FALSE IN
+		PRODUCTION ENVIRONMENT.
+	-->
+	<constant name="struts.devMode" value="false" />
+	<!--
+		STRUTS CONSTANT FOR LOADING APPLICATION LEVEL PROPERTIES,USED FOR
+		GLOBALIZATION & LOCALIZATION.
+		We can provide multiple application resource files using comma seperated.
+	-->
+	<constant name="struts.custom.i18n.resources" value="ApplicationResources,ApplicationResourcesException" />
+	<!--
+		STRUTS CONSTANT FOR MAKING DYNAMICMETHODINVOCATION PROPERTY OF
+		FRAMEWORK FALSE, BY DEFAULT IT IS TRUE.IT IS DONE FOR SECURITY
+		REASONS,SO THAT AN ACTION CAN NOT BE ACCESSED WITH WILDCARDS.
+	-->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!--
+		STRUTS CONSTANT FOR MENTIONING THAT STRUTS2 FRAMEWORK IS INTEGERATING
+		WITH SPRING 3
+	-->
+	<constant name="struts.objectFactory"
+		value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<!--
+		STRUTS CONSTANTS FOR ALLOWING STATIC METHODS TO BE ACCESSED USING OGNL
+		EXPRESSION DIRECTLY IN JSP. SYNTAX FOR ACCESSING A STATIC METHOD IS:
+		<s:property value="@com.utility.Utilities@getSessionCount()"/> I.E,
+		<s:property value="@CLASSNAME@STATIC-METHOD-NAME"/>
+	-->
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<!-- STRUTS CONSTANTS END -->
+	
+	<!--APPLICATION LEVEL DECLARATIONS START-->
+	<package name="strutsSpringDemo" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<!-- INTERCEPTORS AND MAPPINGS START -->
+		<interceptors>
+			<interceptor name="sessionInterceptor" class="com.interceptor.SessionInterceptor" />
+			<interceptor-stack name="sessionCheckStack">
+				    <interceptor-ref name="exception"/>
+	                <interceptor-ref name="alias"/>
+	                <interceptor-ref name="servletConfig"/>
+	                <interceptor-ref name="sessionInterceptor"/>
+	                <!-- LOGGER INTERCEPTOR, GIVES THE INFORMATION OF EXECUTED ACTION -->
+				    <interceptor-ref name="logger"/>
+				    <!-- TIMER INTERCEPTOR, GIVES THE INFORMATION OF EXECUTED ACTION AND METHOD AND ITS EXECUTION TIME -->
+				    <interceptor-ref name="timer"/>
+	                <interceptor-ref name="i18n"/>
+	                <interceptor-ref name="prepare"/>
+	                <interceptor-ref name="chain"/>
+	                <interceptor-ref name="debugging"/>
+	                <interceptor-ref name="profiling"/>
+	                <interceptor-ref name="scopedModelDriven"/>
+	                <interceptor-ref name="modelDriven"/>
+	                <interceptor-ref name="fileUpload"/>
+	                <interceptor-ref name="checkbox"/>
+	                <interceptor-ref name="staticParams"/>
+	                <interceptor-ref name="actionMappingParams"/>
+	                <interceptor-ref name="params">
+	                  <param name="excludeParams">dojo\..*,^struts\..*</param>
+	                </interceptor-ref>
+	                <interceptor-ref name="conversionError"/>
+	                <interceptor-ref name="validation">
+	                    <param name="excludeMethods">input,back,cancel,browse</param>
+	                </interceptor-ref>
+	                <interceptor-ref name="workflow">
+	                    <param name="excludeMethods">input,back,cancel,browse</param>
+	                </interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="sessionCheckStack" />
+		<default-action-ref name="homeAction" />
+		<!-- INTERCEPTORS AND MAPPINGS END-->
+		<!-- GLOBAL RESULTS AND MAPPINGS START-->
+		<global-results>
+			<result name="sessionExpired">/login.jsp?sess=expired</result>
+			<result name="login">/login.jsp</result>
+			<result name="Exception" type="chain">demoExceptionHandler</result>
+			<result name="securityError">/jsp/securityError.jsp</result>
+		</global-results>
+		<!-- GLOBAL RESULTS AND MAPPINGS END-->
+		<!-- GLOBAL EXCEPTIONS AND MAPPINGS START-->
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="Exception" />
+		</global-exception-mappings>
+		<!-- GLOBAL EXCEPTIONS ACTION -->
+		<action name="demoExceptionHandler" class="com.exception.GlobalException">
+			<result name="demoException">/jsp/error.jsp</result>
+		</action>
+		<!-- GLOBAL EXCEPTIONS AND MAPPINGS START-->
+	</package>
+	<!--APPLICATION LEVEL DECLARATIONS END-->
+	
+	<!-- INCLUDING OTHER STRUTS CONFIG XMLs MODULE BASED -->
+	<include file="struts-auth.xml" />
+	<include file="struts-userMgmt.xml" />
+	<include file="struts-utility.xml" />
+	<!-- INCLUDING OTHER STRUTS CONFIG XMLs MODULE BASED -->
+</struts>

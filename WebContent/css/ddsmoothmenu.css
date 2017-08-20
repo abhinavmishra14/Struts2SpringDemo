@@ -1,0 +1,94 @@
+.ddsmoothmenu {
+display : block;
+float : right;
+text-align : right;
+width : 100%;
+}
+.ddsmoothmenu ul {
+z-index : 100;
+margin : 0;
+padding : 0;
+list-style-type : none;
+float : right;
+}
+.ddsmoothmenu ul li {
+position : relative;
+display : inline;
+float : left;
+color : #999;
+}
+.ddsmoothmenu ul li a {
+display : block;
+background : #FAF8CC;
+padding : 0 7px;
+border-right : 1px solid #999;
+text-decoration : none;
+}
+* html .ddsmoothmenu ul li a {
+display : inline-block;
+}
+.ddsmoothmenu ul li a:link, .ddsmoothmenu ul li a:visited {
+color : blue;
+}
+.ddsmoothmenu ul li a.selected {
+background : #FAF8CC;
+color : #666;
+}
+.ddsmoothmenu ul li ul#recentHistory li a, .ddsmoothmenu ul li ul#recentBookmarks li a, .ddsmoothmenu ul li ul.saved-search-result a{
+width : 240px;
+}
+.ddsmoothmenu ul li a:hover {
+background :#FAF8CC;
+color : #333;
+}
+.ddsmoothmenu ul li ul {
+position : absolute;
+left : 0;
+display : none;
+visibility : hidden;
+border-top : 1px solid #92a8b4;
+}
+.ddsmoothmenu ul li ul li {
+display : list-item;
+float : none;
+}
+.ddsmoothmenu ul li ul li ul {
+top : 0;
+}
+.ddsmoothmenu ul li ul li a {
+width : 140px;
+padding : 5px;
+padding-left : 10px;
+margin : 0;
+border-top-width : 0;
+background :#FAF8CC;
+border-right-width : 0;
+text-align : left;
+border-left : 1px solid #92a8b4;
+border-right : 1px solid #92a8b4;
+border-bottom : 1px solid #92a8b4;
+}
+.ddsmoothmenu ul li ul li a:hover {
+background : #d6e0e5;
+color : #333;
+}
+* html .ddsmoothmenu {
+height : 1%;
+}
+.downarrowclass {
+position : absolute;
+top : 6px;
+right : 9px;
+}
+.rightarrowclass {
+position : absolute;
+top : 6px;
+right : 5px;
+}
+.ddshadow {
+position : absolute;
+left : 0;
+top : 0;
+width : 0;
+height : 0;
+}

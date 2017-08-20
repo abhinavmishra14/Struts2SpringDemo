@@ -1,0 +1,44 @@
+<beans default-autowire="autodetect" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+  
+  <!-- DAO INITIALIZATION -->
+  <bean id="authMgr" class="com.daoImpl.AuthenticationDaoImpl" scope="prototype"/>
+  <bean id="userMgmt" class="com.daoImpl.UserManagementDaoImpl" scope="prototype"/>
+   
+   <!-- SERVICE INITIALIZATION -->
+  <bean  id="absService" class="com.service.AbstractService" scope="prototype">
+     <property name="authMgr" ref="authMgr"/>
+     <property name="userMgmt" ref="userMgmt"/>
+  </bean>
+  
+  <bean id="authMgrService" class="com.serviceImpl.AuthenticationServiceImpl" scope="prototype">
+    <property name="absService" ref="absService"/>
+  </bean>
+  
+  <bean id="userMgmtService" class="com.serviceImpl.UserManagementServiceImpl" scope="prototype">
+    <property name="absService" ref="absService"/>
+  </bean>
+  
+  <bean  id="service" class="com.serviceImpl.ServiceAware" scope="prototype">
+     <property name="authMgrService" ref="authMgrService"/>
+     <property name="userMgmtService" ref="userMgmtService"/>
+  </bean>
+  
+  <!-- BEAN FOR ACTIONS -->
+  <bean  id="authBean" class="com.bean.AuthBean"/>
+  
+  <!-- ACTION MAPPING FOR SERVICES -->
+  <bean  id="loginActionClass" class="com.action.LoginAction" scope="prototype">
+    <property name="service" ref="service"/>
+    <property name="authBean" ref="authBean"/>
+  </bean>
+  
+  <bean id="homeActionClass" class="com.action.HomeAction" scope="prototype">
+       <property name="service" ref="service"/>
+       <property name="authBean" ref="authBean"/>
+  </bean>
+</beans>
+
+

@@ -1,0 +1,8 @@
+.userMgmt tr td input.error{
+	background: #f8dbdb;
+	border-color: #e77776;
+}
+
+.errorMessage{
+	color: red;
+}
